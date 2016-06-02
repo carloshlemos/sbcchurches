@@ -1,0 +1,24 @@
+<div class="jumbotron">
+	<form name="igrejaForm">
+        <input class="form-control" type="text" ng-model="igreja.nome" name="nome" placeholder="Nome da Igreja" ng-required="true" ng-minlength="10"/>        
+		<select class="form-control" ng-model="igreja.cidade" ng-options="cidade.nome for cidade in cidades | orderBy:'nome'">
+			<option value="">Selecione uma cidade</option>
+		</select>
+        <input class="form-control" type="text" ng-model="igreja.telefone" name="telefone" placeholder="Telefone da Igreja" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/"/>                
+	</form>
+	<div ng-show="igrejaForm.nome.$dirty" ng-messages="igrejaForm.nome.$error">
+		<div ng-message="required" class="alert alert-danger">
+			Por favor, preencha o campo nome!
+		</div>
+		<div ng-message="minlength" class="alert alert-danger">
+			O campo nome deve ter no mínimo 10 caracteres.
+		</div>
+	</div>
+	<div ng-show="igrejaForm.telefone.$error.required && igrejaForm.telefone.$dirty" class="alert alert-danger">
+		Por favor, preencha o campo telefone!
+	</div>
+	<div ng-show="igrejaForm.telefone.$error.pattern" class="alert alert-danger">
+		O campo telefone deve ter o formato DDDDD-DDDD.
+	</div>
+	<button class="btn btn-primary btn-block" ng-click="adicionarIgreja(igreja)" ng-disabled="igrejaForm.$invalid">Adicionar Igreja</button>
+</div>

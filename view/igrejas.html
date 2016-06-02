@@ -1,0 +1,22 @@
+<div class="jumbotron">
+	{{app}}
+	<input class="form-control" type="text" ng-model="criterioDeBusca" ng-model-options="{updateOn: 'default blur', debounce:{default: 500, blur: 0}}" placeholder="O que você está buscando?"/>
+	<table ng-show="igrejas.length > 0" class="table table-striped">
+		<tr>
+			<th></th>
+			<th>Código</th>
+			<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+			<th>Bairro</th>
+			<th>Cidade</th>
+		</tr>
+		<tr ng-class="{'selecionado negrito': igreja.selecionado}" ng-repeat="igreja in igrejas | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao track by igreja.id">
+			<td><input type="checkbox" ng-model="igreja.selecionado" ng-click="verificarIgrejaSelecionada(igrejas)"/></td>
+			<td>{{::igreja.id}}</td>
+			<td><a href="#/detalhesIgreja/{{igreja.id}}">{{::igreja.nome}}</a></td>
+			<td>{{igreja.bairro}}</td>
+			<td>{{::igreja.cidade.nome}}</td>
+		</tr>
+	</table>
+	<a class="btn btn-primary btn-block" href="#/novaIgreja">Cadastrar Igreja</a>
+	<button class="btn btn-danger btn-block" ng-click="removerIgrejas(igrejas)" ng-if="hasIgrejaSelecionada">Remover Igrejas</button>
+</div>
