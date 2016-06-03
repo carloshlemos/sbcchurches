@@ -1,34 +1,31 @@
-<div class="jumbotron">
-    Dados da Igreja
-    <form name="igrejaForm" class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="email">Email:</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+<div class="container">
+    <div class="jumbotron">
+        <h4>Dados da Igreja</h4>
+        </br>
+        <form name="igrejaForm">
+            <input class="form-control" type="text" ng-model="igreja.nome" name="nome" placeholder="Nome da Igreja" ng-required="true" ng-minlength="10" />
+            <select class="form-control" ng-model="igreja.cidade" ng-options="cidade.nome for cidade in cidades | orderBy:'nome'">
+                <option value="">Selecione uma cidade</option>
+            </select>
+            <input class="form-control" type="text" ng-model="igreja.telefone" name="telefone" placeholder="Telefone da Igreja" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
+        </form>
+        <div ng-show="igrejaForm.nome.$dirty" ng-messages="igrejaForm.nome.$error">
+            <div ng-message="required" class="alert alert-danger">
+                Por favor, preencha o campo nome!
+            </div>
+            <div ng-message="minlength" class="alert alert-danger">
+                O campo nome deve ter no mínimo 10 caracteres.
             </div>
         </div>
-        <input class="form-control" type="text" ng-model="igreja.nome" name="nome" placeholder="Nome da Igreja" ng-required="true" ng-minlength="10" />
-        <select class="form-control" ng-model="igreja.cidade" ng-options="cidade.nome for cidade in cidades | orderBy:'nome'">
-            <option value="">Selecione uma cidade</option>
-        </select>
-        <input class="form-control" type="text" ng-model="igreja.telefone" name="telefone" placeholder="Telefone da Igreja" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
-    </form>
-    <div ng-show="igrejaForm.nome.$dirty" ng-messages="igrejaForm.nome.$error">
-        <div ng-message="required" class="alert alert-danger">
-            Por favor, preencha o campo nome!
+        <div ng-show="igrejaForm.telefone.$error.required && igrejaForm.telefone.$dirty" class="alert alert-danger">
+            Por favor, preencha o campo telefone!
         </div>
-        <div ng-message="minlength" class="alert alert-danger">
-            O campo nome deve ter no mínimo 10 caracteres.
+        <div ng-show="igrejaForm.telefone.$error.pattern" class="alert alert-danger">
+            O campo telefone deve ter o formato DDDDD-DDDD.
         </div>
+        <button class="btn btn-primary" ng-click="adicionarIgreja(igreja)" ng-disabled="igrejaForm.$invalid">Adicionar Igreja</button>
+        </br>
+        </br>
+        <a class="btn btn-primary" href="#/igrejas">Voltar</a>
     </div>
-    <div ng-show="igrejaForm.telefone.$error.required && igrejaForm.telefone.$dirty" class="alert alert-danger">
-        Por favor, preencha o campo telefone!
-    </div>
-    <div ng-show="igrejaForm.telefone.$error.pattern" class="alert alert-danger">
-        O campo telefone deve ter o formato DDDDD-DDDD.
-    </div>
-    <button class="btn btn-primary" ng-click="adicionarIgreja(igreja)" ng-disabled="igrejaForm.$invalid">Adicionar Igreja</button>
-    </br>
-    </br>
-    <a class="btn btn-primary" href="#/igrejas">Voltar</a>
 </div>
