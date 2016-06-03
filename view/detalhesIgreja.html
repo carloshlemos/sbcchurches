@@ -1,18 +1,18 @@
 <div class="jumbotron">
-    Igreja
+    Dados da Igreja:
 	<table class="table">
 		<tr>
 			<td>{{igreja.nome}}</td>
 		</tr>
 		<tr>
-			<td>{{igreja.telefone}}</td>
-		</tr>
+			<td>{{igreja.logradouro}}, {{igreja.complemento}}, {{::igreja.cidade.nome}}-{{::igreja.cidade.estado}}</td>
+		</tr>        
 		<tr>
-			<td>{{::igreja.cidade.nome}}</td>
-		</tr>
+			<td>{{igreja.telefone}}</td>
+		</tr>        
 	</table>
     </br>
-    Localização
+    Localização:
     <ui-gmap-google-map center='map.center' zoom='map.zoom'>
         <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>        
     </ui-gmap-google-map>
