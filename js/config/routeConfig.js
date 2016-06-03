@@ -35,5 +35,8 @@ angular.module("churchs").config(function ($routeProvider) {
 	$routeProvider.when("/error", {
 		templateUrl: "view/error.html"
 	});
-	$routeProvider.otherwise({redirectTo: "/igrejas"});
+    
+	$routeProvider.otherwise({
+        templateUrl: "view/home.html"
+    });
 });
