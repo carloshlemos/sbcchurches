@@ -1,5 +1,5 @@
 angular.module("churchs").controller("igrejaListCtrl", function ($scope, igrejas, cidades, $filter) {
-	$scope.app = $filter('upper')("SBC-Churchs - Cadastro de Igrejas");
+	$scope.app = "SBC-Churches - Igrejas do Sínodo Brasil Central";
 	$scope.igrejas = igrejas.data;
 	$scope.cidades = cidades.data;
     

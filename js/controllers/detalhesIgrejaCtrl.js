@@ -1,4 +1,4 @@
-angular.module("churchs").controller("detalhesIgrejaCtrl", function ($scope, igreja) {
+angular.module("churchs").controller("detalhesIgrejaCtrl", function ($scope, igrejasAPI, igreja) {
     $scope.igreja = igreja.data;
 
     $scope.map = {
@@ -6,7 +6,6 @@ angular.module("churchs").controller("detalhesIgrejaCtrl", function ($scope, igr
             latitude: $scope.igreja.latitude,
             longitude: $scope.igreja.longitude
         },
-        zoom: 6
     };
     
     $scope.options = {
@@ -21,20 +20,21 @@ angular.module("churchs").controller("detalhesIgrejaCtrl", function ($scope, igr
             latitude: $scope.igreja.latitude,
             longitude: $scope.igreja.longitude
         },
+        title: $scope.igreja.nome,
         options: {
             draggable: true
         },
         events: {
             dragend: function (marker, eventName, args) {
-                $log.log('marker dragend');
                 var lat = marker.getPosition().lat();
                 var lon = marker.getPosition().lng();
-                $log.log(lat);
-                $log.log(lon);
+                
+                $scope.igreja.latitude = lat;
+                $scope.igreja.longitude = lon;
 
                 $scope.marker.options = {
                     draggable: true,
-                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+                    labelContent: "Latitude: " + $scope.marker.coords.latitude + ' ' + 'Longitude: ' + $scope.marker.coords.longitude,
                     labelAnchor: "100 0",
                     labelClass: "marker-labels"
                 };
@@ -46,4 +46,8 @@ angular.module("churchs").controller("detalhesIgrejaCtrl", function ($scope, igr
             return;
         $scope.coordsUpdates++;
     });
+    
+	$scope.alterarIgreja = function (igreja) {
+	
+	};    
 });
