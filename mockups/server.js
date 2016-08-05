@@ -4,6 +4,106 @@ var app = express();
 
 app.use(bodyParser.json());
 
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('sbc', null, null, {
+    dialect: 'postgres'
+})
+
+var Igreja = sequelize.define('igreja', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        get: function()  {},
+        set: function(v) {}            
+    },
+    nome: {
+        type: Sequelize.STRING
+    },
+    logradouro: {
+        type: Sequelize.STRING
+    }, 
+    complemento: {
+        type: Sequelize.STRING
+    },
+    bairro: {
+        type: Sequelize.STRING
+    },
+    latitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+        validate: { min: -90, max: 90 }
+      },
+    longitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+        validate: { min: -180, max: 180 }
+    }
+}, {
+    tableName: 'igreja',
+    timestamps: false // this will deactivate the timestamp columns
+})
+
+
+var Cidade = sequelize.define('cidade', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nome: {
+        type: Sequelize.STRING
+    },
+    estado: {
+        type:   Sequelize.ENUM,
+        values:['GO']
+    }
+}, {
+    tableName: 'cidade',
+    timestamps: false
+})
+
+Igreja.belongsTo(Cidade, {foreignKey: 'fk_cidade'});
+
+sequelize
+  .sync({ force: true })
+  .then(function(err) {
+    console.log('It worked!');
+  }, function (err) { 
+    console.log('An error occurred while creating the table:', err);
+  });
+
+Cidade.sync().then(function(){
+    var goiania = {
+        nome: 'GOIÂNIA',
+        estado: 'GO'
+    }
+    
+    Cidade.create(goiania).then(function(cidade){
+        console.dir(cidade.get())
+    })
+    
+    Igreja.sync({force: true}).then(function (){
+        var finsocial = {
+            nome: "IGREJA PRESBITERIANA FINSOCIAL",
+            logradouro: "Rua VF-42",
+            complemento: "Quadra 34 Lote 5",
+            bairro: "Vila Finsocial",
+            fk_cidade: 1
+        }
+
+        Igreja.create(finsocial).then(function(igreja){
+            console.dir(igreja.get())
+        })
+    })        
+})
+
+//Igreja.findAll({ include: [ Cidade ] }).then(function(igrejas) {
+//  console.log(JSON.stringify(igrejas))
+//})
+
 var igrejas = [{
 	"id": 1,
 	"nome": "IGREJA PRESBITERIANA FINSOCIAL",
@@ -184,6 +284,7 @@ app.get('/igrejas/:id', function(req, res) {
 
 app.post('/igrejas', function(req, res) {
   igrejas.push(req.body);
+  console.log(req.body);
   res.json(true);
 });
 
