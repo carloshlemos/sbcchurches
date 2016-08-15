@@ -1,14 +1,61 @@
 <div class="container">
-    <div class="jumbotron">
-        <h4>Dados da Igreja</h4>
+    <div class="jumbotron" style="text-align: left; !important">
+        <h3>Dados da Igreja:</h3>
         </br>
         <form name="igrejaForm">
-            <input class="form-control" type="text" ng-model="igreja.nome" name="nome" placeholder="Nome da Igreja" ng-required="true" ng-minlength="10" />
-            <select class="form-control" ng-model="igreja.cidade" ng-options="cidade.nome for cidade in cidades | orderBy:'nome'">
-                <option value="">Selecione uma cidade</option>
-            </select>
-            <input class="form-control" type="text" ng-model="igreja.telefone" name="telefone" placeholder="Telefone da Igreja" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
+         <div class="form-group row">
+            <label class="control-label col-sm-2" for="nome">Nome:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nome" ng-model="igreja.nome" placeholder="Informe o nome da Igreja">
+            </div>
+          </div>
+           <div class="form-group row">
+            <label class="control-label col-sm-2" for="logradouro">Logradouro:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="logradouro" ng-model="igreja.logradouro" placeholder="Informe o logradouro. Ex.: Avenida Anhanguera">
+            </div>              
+          </div>            
+           <div class="form-group row">
+            <label class="control-label col-sm-2" for="complemento">Complemento:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="complemento" ng-model="igreja.complemento" placeholder="Informe o complemento. Ex.: Quadra x, Lote y">
+            </div>              
+          </div>
+           <div class="form-group row">
+            <label class="control-label col-sm-2" for="bairro">Bairro:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="bairro" ng-model="igreja.bairro" placeholder="Informe o bairro. Ex.: Centro">
+            </div>              
+          </div>  
+           <div class="form-group row">
+            <label class="control-label col-sm-2" for="email">Email:</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email" ng-model="igreja.email" placeholder="Informe o email.">
+            </div>              
+          </div>
+           <div class="form-group row">
+            <label class="control-label col-sm-2" for="telefone">Telefone:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" ng-model="igreja.telefone" name="telefone" placeholder="Telefone da Igreja. Ex.: (99) 99999-9999" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" />
+            </div>              
+          </div>            
+           <div class="form-group row">
+            <label class="control-label col-sm-2" for="cidade">Cidade:</label>
+            <div class="col-sm-10">
+                <select class="form-control" ng-model="igreja.cidade" ng-options="cidade.nome for cidade in cidades | orderBy:'nome'">
+                    <option value="">Selecione uma cidade</option>
+                </select>                
+            </div>                             
+          </div>           
+            <div class="form-group row">
+            <label class="control-label col-sm-2">Localização:</label>
+            <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id"></ui-gmap-marker>
+            </ui-gmap-google-map>   
+            </div>
         </form>
+    
+<!--
         <div ng-show="igrejaForm.nome.$dirty" ng-messages="igrejaForm.nome.$error">
             <div ng-message="required" class="alert alert-danger">
                 Por favor, preencha o campo nome!
@@ -23,9 +70,8 @@
         <div ng-show="igrejaForm.telefone.$error.pattern" class="alert alert-danger">
             O campo telefone deve ter o formato DDDDD-DDDD.
         </div>
-        <button class="btn btn-primary" ng-click="adicionarIgreja(igreja)" ng-disabled="igrejaForm.$invalid">Adicionar Igreja</button>
-        </br>
-        </br>
-        <a class="btn btn-primary" href="#/igrejas">Voltar</a>
+-->
+    
+        <button class="btn btn-primary" ng-click="adicionarIgreja(igreja)">Adicionar</button>
     </div>
 </div>

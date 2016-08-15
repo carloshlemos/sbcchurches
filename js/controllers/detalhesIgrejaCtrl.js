@@ -1,11 +1,11 @@
 angular.module("churchs").controller("detalhesIgrejaCtrl", function ($scope, igrejasAPI, igreja) {
     $scope.igreja = igreja.data;
 
-    $scope.map = {
+    $scope.map = {        
         center: {
             latitude: $scope.igreja.latitude,
             longitude: $scope.igreja.longitude
-        },
+        }
     };
     
     $scope.options = {

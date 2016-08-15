@@ -7,8 +7,8 @@ angular.module("churchs").factory("igrejasAPI", function ($http, config) {
 		return $http.get(config.baseUrl + "/igrejas/" + id);
 	};
 
-	var _saveIgreja = function (contato) {
-		return $http.post(config.baseUrl + "/igrejas", contato);
+	var _saveIgreja = function (igreja) {
+		return $http.post(config.baseUrl + "/igrejas", JSON.stringify(igreja));
 	};
 
 	return {

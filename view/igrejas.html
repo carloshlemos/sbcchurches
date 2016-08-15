@@ -6,16 +6,16 @@
         <table ng-show="igrejas.length > 0" class="table table-striped">
             <tr>
                 <th></th>
-                <th>Código</th>
+                <th>ID</th>
                 <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
                 <th>Bairro</th>
                 <th>Cidade</th>
             </tr>
-            <tr ng-class="{'selecionado negrito': igreja.selecionado}" ng-repeat="igreja in igrejas | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao track by igreja.id">
+            <tr ng-class="{'selecionado negrito': igreja.selecionado}" ng-repeat="igreja in igrejas | filter:criterioDeBusca | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
                 <td>
                     <input type="checkbox" ng-model="igreja.selecionado" ng-click="verificarIgrejaSelecionada(igrejas)" />
                 </td>
-                <td>{{::igreja.id}}</td>
+                <td>{{igreja.id}}</td>
                 <td><a href="#/detalhesIgreja/{{igreja.id}}">{{::igreja.nome}}</a></td>
                 <td>{{igreja.bairro}}</td>
                 <td>{{::igreja.cidade.nome}}</td>
