@@ -18,7 +18,7 @@ angular.module("churchs").controller("igrejaEditCtrl", function ($scope, $locati
         center: {
             latitude: -16.047226,
             longitude: -49.558697
-        }
+        },       
     };
     
     $scope.options = {
@@ -27,8 +27,9 @@ angular.module("churchs").controller("igrejaEditCtrl", function ($scope, $locati
     
     $scope.coordsUpdates = 0;
     $scope.dynamicMoveCtr = 0;
+    
     $scope.marker = {
-        id: 0,
+        id: 0,        
         coords: {
             latitude: -16.047226,
             longitude: -49.558697
