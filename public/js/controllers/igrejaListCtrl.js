@@ -4,6 +4,7 @@ angular.module("churchs").controller("igrejaListCtrl", function ($scope, igrejas
 	$scope.cidades = cidades.data;
     
 	var init = function () {
+        
 	};  
 
 	$scope.verificarIgrejaSelecionada = function (igrejas) {

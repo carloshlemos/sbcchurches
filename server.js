@@ -60,8 +60,8 @@ app.get('/cidades', function(req, res) {
     });    
 });
 
-app.listen(process.env.PORT || 3412);
-console.log("App listening on port 3412");
+app.listen(process.env.PORT || 8080);
+console.log("App listening on port 8080");
 
 function loadEntity(){
     Igreja = sequelize.define('igreja', {
