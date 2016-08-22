@@ -49,11 +49,30 @@ app.get('/igrejas/:id', function(req, res) {
 });
 
 app.post('/igrejas', function(req, res) {
-    Igreja.create(req.body).then(function(){
+    Igreja.create(req.body).then(function(igreja){
+        igreja.fk_cidade = req.body.cidade.id;
+        Igreja.update(igreja, {
+          where: {
+            id: igreja.id
+          }
+        });
         res.json(true);  
     }).catch(function(error) {
         res.send('500: Igreja não cadastrada: ' + error, 500);
     });      
+});
+
+app.delete('/igrejas/:id', function(req, res){
+    Igreja.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (deletedRecords) {
+      res.status(200).json(deletedRecords);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    });
 });
 
 app.get('/cidades', function(req, res) {
@@ -107,7 +126,7 @@ function loadEntity(){
         }   
     }, {
         tableName: 'igreja',
-        timestamps: false // this will deactivate the timestamp columns
+        timestamps: false // this will deactivate the timestamp columns     
     });
 
     Cidade = sequelize.define('cidade', {
@@ -127,7 +146,7 @@ function loadEntity(){
         timestamps: false
     });     
     
-   Igreja.belongsTo(Cidade, {foreignKey: 'fk_cidade'});    
+   Igreja.belongsTo(Cidade, {foreignKey: 'fk_cidade'});
 }
 
 function createDataBase(){

@@ -5,7 +5,7 @@ angular.module("churchs").controller("igrejaEditCtrl", function ($scope, $locati
         "logradouro": null,
         "complemento": null,
         "bairro": null,
-        fk_cidade: null,
+        "cidade": null,
         "cep": null,    
         "latitude": null,
         "longitude": null,
