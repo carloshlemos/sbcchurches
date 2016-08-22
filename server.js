@@ -33,13 +33,13 @@ loadEntity();
 //importDataBase();
 
 app.get('/igrejas', function(req, res) {
-    Igreja.findAll({attributes: ['id', 'nome', 'bairro', 'fk_cidade'], order: 'nome'}).then(function(igrejas) {        
+    Igreja.findAll({attributes: ['id', 'nome', 'bairro', 'fk_cidade'], include: {model: Cidade}, order: 'nome'}).then(function(igrejas) {        
         res.json(igrejas.map(function(igreja){ return igreja.toJSON()}));
     });
 });
 
 app.get('/igrejas/:id', function(req, res) {    
-    Igreja.findAll({where: {id: req.params.id}}).then(function(igrejas) {        
+    Igreja.findAll({where: {id: req.params.id}, include: {model: Cidade}}).then(function(igrejas) {        
         res.json(igrejas[0].toJSON());
     }).catch(function(error) {
         res.send('500: Igreja não encontrada: ' + error, 500);
@@ -123,12 +123,12 @@ function loadEntity(){
     }, {
         tableName: 'cidade',
         timestamps: false
-    });        
+    });     
+    
+   Igreja.belongsTo(Cidade, {foreignKey: 'fk_cidade'});    
 }
 
 function createDataBase(){
-    Igreja.belongsTo(Cidade, {foreignKey: 'fk_cidade'});
-
     sequelize
       .sync({ force: true })
       .then(function(err) {
