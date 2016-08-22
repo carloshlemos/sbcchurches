@@ -1,0 +1,14 @@
+[Unit]
+Description=SBC-Churches
+
+[Service]
+ExecStart=/home/carloshlemos/workspaceAngular/sbcchurches/server.js
+Restart=always
+User=nobody
+Group=nobody
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/home/carloshlemos/workspaceAngular/sbcchurches
+
+[Install]
+WantedBy=multi-user.target
